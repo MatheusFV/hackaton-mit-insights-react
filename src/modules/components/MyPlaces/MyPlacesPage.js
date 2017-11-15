@@ -39,7 +39,7 @@ class MyPlacesPage extends Component {
     return (
       <Wrapper>
         <ButtonWrapper>
-          <Button label="Criar Place" onClick={() => goToNewPlace()} />
+          <Button label="Criar Spot" onClick={() => goToNewPlace()} />
         </ButtonWrapper>
         <PostsWrapper>
           {

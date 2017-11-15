@@ -8,20 +8,18 @@ import {
 } from 'react-redux-firebase'
 import GroupPage from '@modules/components/Group/GroupPage'
 
-const urlMapping = () => ({
-  users: 'users',
-})
-
 const mapDispatchToProps = dispatch => ({
 
 })
 
 const mapStateToProps = state => ({
   isMobile: checkIfMobile(),
+  myId: state.firebase && state.firebase.get('auth').uid,
+  comments: [{ key: 'teste', name: 'meunome', message: 'message' }],
   // team: dataToJS(state.firebase, `teamRelations/teamsForPatient/${uid}/${teamId}`),
 })
 
 export default compose(
-  firebaseConnect(urlMapping),
+  firebaseConnect(['/chats']),
   connect(mapStateToProps, mapDispatchToProps),
 )(GroupPage)

@@ -41,7 +41,7 @@ const ItemSelected = {
 }
 
 const MenuOptions = [
-  { label: "Meus 'places'", route: '/my-places' },
+  { label: 'Meus spots', route: '/my-places' },
   { label: 'Perfil', route: '/perfil' },
   { label: 'Grupo', route: '/group' },
   { label: 'Notificações', route: '/notifs' },
