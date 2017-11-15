@@ -17,6 +17,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
   isMobile: checkIfMobile(),
+  authLoading: state.auth.get('authLoading'),
 })
 
 export default compose(

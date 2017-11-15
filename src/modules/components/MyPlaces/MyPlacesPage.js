@@ -48,7 +48,7 @@ class MyPlacesPage extends Component {
                 <ListItem
                   onClick={() => setPlace(item.key)}
                   style={{ padding: '10px 0' }}
-                  leftAvatar={<Avatar src={item.photo} />}
+                  leftAvatar={<Avatar src={item.imageUrl} />}
                   primaryText={item.address}
                   secondaryText={item.price}
                 />

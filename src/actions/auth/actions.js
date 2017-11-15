@@ -1,6 +1,7 @@
 import { push } from 'react-router-redux'
 import { newAlert } from '@actions/global/actions'
 import * as t from './actionTypes.js'
+import { key } from 'firebase-key';
 
 const signInStart = () => ({
   type: t.SIGN_IN_START,
@@ -49,5 +50,33 @@ export const signup = formValues => (dispatch, getState, getFirebase) => {
 }
 
 export const createPlace = (formValues, tags, image) => (dispatch, getState, getFirebase) => {
+  dispatch(signInStart())
+
   const firebase = getFirebase()
+  const state = getState()
+  const uid = state.firebase.get('auth').uid
+
+  const storageRef = firebase.storage().ref(`placesPhoto/${key()}`)
+  const task = storageRef.put(image);
+
+  task.on('state_changed', () => {},
+    (err) => { console.log(err) },
+    () => {
+      const downloadURL = task.snapshot.downloadURL;
+      const smallData = {
+        ...formValues,
+        imageUrl: downloadURL,
+      }
+      const firebaseData = {
+        ...formValues,
+        tags,
+        imageUrl: downloadURL,
+      }
+      firebase.push(`owners/${uid}`, smallData).then((res) => {
+        firebase.set(`places/${res.path.o[2]}`, firebaseData)
+        dispatch(signInFinish())
+        dispatch(push('/my-places'))
+      })
+    },
+  )
 }

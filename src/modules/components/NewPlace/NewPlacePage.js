@@ -10,6 +10,7 @@ import MenuItem from 'material-ui/MenuItem';
 import UploadImage from '@globalComponents/UploadImage'
 import EditableBanner from '@globalComponents/EditableBanner'
 import Button from '@globalComponents/DefaultButton'
+import LoadingOverlay from '@globalComponents/LoadingOverlay'
 import fonts from '@fonts'
 import styles from '@consts/styles'
 
@@ -69,6 +70,7 @@ class LoginPage extends Component {
     const {
       createPlace,
       handleSubmit,
+      authLoading,
     } = this.props
     const {
       buttonName,
@@ -92,6 +94,7 @@ class LoginPage extends Component {
 
     return (
       <div>
+        { authLoading && <LoadingOverlay /> }
         <Title>Criar place</Title>
         <ImageWrapper>
           {isEditing ? <UploadImage
