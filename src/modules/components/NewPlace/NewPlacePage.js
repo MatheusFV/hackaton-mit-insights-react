@@ -27,16 +27,12 @@ const ImageWrapper = styled.div`
 `
 
 const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
+  'Animais',
+  'Fumar',
+  'Estudantes',
+  'Homens',
+  'Mulheres',
+  'Menores de idade',
 ];
 
 class LoginPage extends Component {
@@ -133,7 +129,7 @@ class LoginPage extends Component {
           />
           <SelectField
             multiple
-            hintText="Selecione os filtros"
+            hintText="Não é permitido"
             value={values}
             style={{ width: '100%', marginTop: '20px' }}
             onChange={this.handleChange}

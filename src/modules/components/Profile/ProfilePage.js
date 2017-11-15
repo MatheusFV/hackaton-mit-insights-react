@@ -102,18 +102,22 @@ class EventDetailPage extends Component {
         {
           relations && relations.map(item => (
             <div>
-              <ListItem
-                style={{ padding: '10px 0' }}
-                leftAvatar={<Avatar src={item.photoUrl} />}
-                primaryText={item.name}
-              />
-              <ButtonWrapper>
-                <Button
-                  label={this.getText(item.status)}
-                  onClick={() => switchStatus(item.status, item.key, activePlace)}
-                />
-              </ButtonWrapper>
-              <Divider />
+              { item.status !== 'kicked' &&
+                <div>
+                  <ListItem
+                    style={{ padding: '10px 0' }}
+                    leftAvatar={<Avatar src={item.photoUrl} />}
+                    primaryText={item.name}
+                  />
+                  <ButtonWrapper>
+                    <Button
+                      label={this.getText(item.status)}
+                      onClick={() => switchStatus(item.status, item.key, activePlace)}
+                    />
+                  </ButtonWrapper>
+                  <Divider />
+                </div>
+              }
             </div>
           ))
         }
