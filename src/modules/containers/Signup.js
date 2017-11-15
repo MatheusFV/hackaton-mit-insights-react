@@ -1,26 +1,22 @@
 import { compose } from 'redux'
 import { reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
-import { login } from '@actions/auth/actions'
-import { push } from 'react-router-redux'
+import { signup } from '@actions/auth/actions'
 
 import schema from '@consts/schemas/signupSchema'
 import validator from '@helpers/validator'
 import { checkIfMobile } from '@helpers/checkIfMobile'
 
-import SignInPage from '@components/SignIn/SignInPage'
+import SignUpPage from '@components/SignUp/SignUpPage'
 
 // Inserir validador em todos os containeirs de forms
 const validate = values => validator(values, schema)
 
 // Mapea as funções que o componente principal terá acesso
 const mapDispatchToProps = dispatch => ({
-  login(formValues) {
+  signup(formValues) {
     // Dispara uma ação
-    dispatch(login(formValues))
-  },
-  goToSignUp() {
-    dispatch(push('/convidado/cadastro'))
+    dispatch(signup(formValues))
   },
 })
 
@@ -38,4 +34,4 @@ export default compose(
       form: 'SignInForm',
       validate,
     }),
-)(SignInPage)
+)(SignUpPage)

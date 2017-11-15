@@ -8,7 +8,6 @@ import { TextField } from 'redux-form-material-ui'
 import LoadingOverlay from '@globalComponents/LoadingOverlay'
 import Button from '@globalComponents/DefaultButton'
 import fonts from '@fonts'
-import colors from '@colors'
 import styles from '@consts/styles'
 
 const Title = styled.div`
@@ -17,22 +16,12 @@ const Title = styled.div`
   height: 40px;
   font-size: ${fonts.large}
 `
-const SignUp = styled.div`
-  display: inline-block;
-  float: right;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  color: ${colors.primaryColor};
-  cursor: pointer;
-  text-align: right;
-  font-size: ${fonts.medium};
-`
 
-class LoginPage extends Component {
+class SignUpPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      buttonName: 'Entrar',
+      buttonName: 'Cadastrar',
     }
   }
 
@@ -44,9 +33,8 @@ class LoginPage extends Component {
   render() {
     const {
       authLoading,
-      login,
+      signup,
       handleSubmit,
-      goToSignUp,
     } = this.props
     const {
       buttonName,
@@ -55,13 +43,19 @@ class LoginPage extends Component {
     return (
       <div>
         { authLoading && <LoadingOverlay /> }
-        <Title>Login</Title>
-        <form onSubmit={handleSubmit(login)}>
+        <Title>Cadastro</Title>
+        <form onSubmit={handleSubmit(signup)}>
           <Field
-            name="username"
+            name="email"
             style={styles.inputField}
             component={TextField}
-            floatingLabelText="Nome de Usuário"
+            floatingLabelText="Email"
+          />
+          <Field
+            name="name"
+            style={styles.inputField}
+            component={TextField}
+            floatingLabelText="Nome"
           />
           <Field
             name="password"
@@ -70,9 +64,13 @@ class LoginPage extends Component {
             component={TextField}
             floatingLabelText="Senha"
           />
-          <SignUp onClick={() => goToSignUp()}>
-            Não tenho cadastro
-          </SignUp>
+          <Field
+            name="confirmPassword"
+            type="password"
+            style={styles.inputField}
+            component={TextField}
+            floatingLabelText="Confirmar Senha"
+          />
           <Button label={buttonName} />
         </form>
       </div>
@@ -80,4 +78,4 @@ class LoginPage extends Component {
   }
 }
 
-export default (LoginPage)
+export default (SignUpPage)

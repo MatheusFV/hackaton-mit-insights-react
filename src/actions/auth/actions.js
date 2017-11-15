@@ -14,24 +14,43 @@ const signInFinish = data => ({
   },
 })
 
-export const login = formValues => async (dispatch, getState) => {
-  // Set the loading property on state
+export const login = formValues => async (dispatch, getState, getFirebase) => {
   dispatch(signInStart())
 
-  // Do some thing with form values
-  console.log(formValues)
+  const firebase = getFirebase()
+  firebase.login({
+    email: formValues.username,
+    password: formValues.password,
+  }).then((resp) => {
+    const ref = firebase.ref(`/users/${resp.uid}`)
+    ref.once('value')
+    .then((snapshot) => {
+      dispatch(signInFinish(snapshot.val()))
+      dispatch(push('/home'))
+    })
+  }).catch((err) => {
+    console.log(err)
+  })
+}
 
-  // Do some sort of request
-  // try {
-  //   const response = await fetchData()
-  // } catch (err) {
-  //   dispatch(newAlert('standardError'))
-  // }
+export const signup = formValues => (dispatch, getState, getFirebase) => {
+  dispatch(signInStart())
+  const { email, password } = formValues
 
-  // Set the loading to false, and set some profileData on state
-  dispatch(signInFinish(formValues))
+  const firebaseData = formValues
+  delete firebaseData.password
+  delete firebaseData.confirmPassword
 
-  // Redirect to home already happens,
-  // use this if you want to redict to a different page
-  // dispatch(push('/other-page'))
+  const firebase = getFirebase()
+  firebase.createUser({
+    email,
+    password,
+  }).then((userData) => {
+    firebase.helpers.set(`/users/${userData.uid}`, firebaseData)
+
+    dispatch(signInFinish(firebaseData))
+    dispatch(push('/home'))
+  }).catch((err) => {
+    console.log(err)
+  })
 }

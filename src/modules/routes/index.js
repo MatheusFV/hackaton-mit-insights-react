@@ -11,22 +11,22 @@ import App from '@globalComponents/App';
 import AlertDialog from '@containers/AlertDialog'
 import CentralContainer from '@globalComponents/CentralContainer'
 import Home from '@containers/Home'
-// Implement your own Menu/Header
-// import HeaderMenu from '@containers/Header'
+import HeaderMenu from '@containers/Header'
 import SignIn from '@containers/SignIn'
+import SignUp from '@containers/SignUp'
 
-// Funções para validar o acesso de rotas caso o usuário esta logado/deslogado
-const userIsAuthenticated = connectedRouterRedirect({
-  redirectPath: '/convidado/inicio',
-  authenticatedSelector: state => state.auth.get('logged'),
-  wrapperDisplayName: 'UserIsAuthenticated',
-})
-const userIsNotAuthenticated = connectedRouterRedirect({
-  redirectPath: (state, ownProps) => '/home',
-  allowRedirectBack: false,
-  authenticatedSelector: state => !state.auth.get('logged'),
-  wrapperDisplayName: 'UserIsNotAuthenticated',
-})
+// // Funções para validar o acesso de rotas caso o usuário esta logado/deslogado
+// const userIsAuthenticated = connectedRouterRedirect({
+//   redirectPath: '/convidado/inicio',
+//   authenticatedSelector: state => state.auth.get('logged'),
+//   wrapperDisplayName: 'UserIsAuthenticated',
+// })
+// const userIsNotAuthenticated = connectedRouterRedirect({
+//   redirectPath: (state, ownProps) => '/home',
+//   allowRedirectBack: false,
+//   authenticatedSelector: state => !state.auth.get('logged'),
+//   wrapperDisplayName: 'UserIsNotAuthenticated',
+// })
 
 const RedirectToStart = () => (
   <Redirect to="/convidado/inicio" />
@@ -35,7 +35,7 @@ const RedirectToStart = () => (
 // Grupo de rotas autenticadas
 const AuthenticatedRoutes = () => (
   <div>
-    {/* <HeaderMenu /> */}
+    <HeaderMenu />
     <AlertDialog />
     <CentralContainer>
       <Route path="/home" exact component={Home} />
@@ -47,6 +47,7 @@ const AuthenticatedRoutes = () => (
 const UnauthenticatedRoutes = () => (
   <CentralContainer>
     <Route path={'/convidado/inicio'} component={SignIn} />
+    <Route path={'/convidado/cadastro'} component={SignUp} />
   </CentralContainer>
 )
 
@@ -63,8 +64,8 @@ export default class Routes extends React.Component {
         <RouteNest path="/" component={App}>
           <Route path="/" exact component={RedirectToStart} />
           <Switch>
-            <Route path="/convidado" component={userIsNotAuthenticated(UnauthenticatedRoutes)} />
-            <Route path="/" component={userIsAuthenticated(AuthenticatedRoutes)} />
+            <Route path="/convidado" component={UnauthenticatedRoutes} />
+            <Route path="/" component={AuthenticatedRoutes} />
           </Switch>
         </RouteNest>
       </ConnectedRouter>
