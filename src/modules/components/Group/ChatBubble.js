@@ -12,11 +12,11 @@ const ChatComment = styled.div`
 const Avatar = styled.img`
   width: 36px;
   height: 36px;
-  margin-top: 16px;
+  margin-top: 5px;
   border-radius: 50%;
 `
 const ChatBubble = styled.div`
-  padding: 20px 25px;
+  padding: 15px 20px;
   border-radius: 5px;
   position: relative;
   min-width: 130px;
@@ -62,6 +62,13 @@ const Message = styled.p`
   max-width: 375px;
   overflow: hidden;
 `
+const Name = styled.p`
+  font-size: 1rem;
+  line-height: 1.3em;
+  color: black;
+  max-width: 375px;
+  overflow: hidden;
+`
 
 export default class ChatContainer extends Component {
   constructor(props) {
@@ -82,7 +89,7 @@ export default class ChatContainer extends Component {
       thisUser,
       name,
       photo,
-      comment,
+      message,
     } = this.props
 
     return (
@@ -91,8 +98,11 @@ export default class ChatContainer extends Component {
           thisUser &&
           <div>
             <MyChatBubble thisUser={thisUser}>
+              <Name>
+                {name}
+              </Name>
               <Message>
-                {comment}
+                {message}
               </Message>
             </MyChatBubble>
           </div>
@@ -102,8 +112,11 @@ export default class ChatContainer extends Component {
           !thisUser &&
           <div>
             <OtherChatBubble thisUser={thisUser}>
+              <Name>
+                {name}
+              </Name>
               <Message>
-                {comment}
+                {message}
               </Message>
             </OtherChatBubble>
           </div>

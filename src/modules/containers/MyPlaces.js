@@ -22,7 +22,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
   isMobile: checkIfMobile(),
-  uid: state.firebase && state.firebase.get('auth').uid,
+  uid: (state.firebase && state.firebase.get('auth') && state.firebase.get('auth').uid) || '',
   // places: dataToJS(state.firebase, `owners/${state.firebase.get('auth').uid}`),
   owners: objectToArray2(dataToJS(state.firebase, '/owners')),
 })
