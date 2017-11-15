@@ -75,7 +75,7 @@ export default class ChatContainer extends Component {
 
     return (
       <StyledWrapper>
-        <Title>Group</Title>
+        <Title>Grupo</Title>
         <StyledChatView
           flipped
           scrollLoadThreshold={50}
