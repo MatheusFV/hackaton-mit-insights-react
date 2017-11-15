@@ -96,7 +96,7 @@ class LoginPage extends Component {
     return (
       <div>
         { authLoading && <LoadingOverlay /> }
-        <Title>Criar place</Title>
+        <Title>Criar spot</Title>
         <ImageWrapper>
           {isEditing ? <UploadImage
             onSave={reducedFile => finishCropping(reducedFile)}

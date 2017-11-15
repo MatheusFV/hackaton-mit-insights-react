@@ -14,9 +14,9 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
   isMobile: checkIfMobile(),
+  activePlace: state.auth && state.auth.get('activePlace'),
   myId: state.firebase && state.firebase.get('auth').uid,
-  comments: [{ key: 'teste', name: 'meunome', message: 'message' }],
-  // team: dataToJS(state.firebase, `teamRelations/teamsForPatient/${uid}/${teamId}`),
+  comments: [{ key: 'teste', name: 'meunome', comment: 'message' }],
 })
 
 export default compose(

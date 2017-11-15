@@ -1,9 +1,9 @@
 import React, { PropTypes, Component } from 'react'
 import styled from 'styled-components'
 import TextSubmitter from '@globalComponents/TextSubmitter'
-import CommentBubble from '@modules/chat/components/ChatBubble'
 import ChatView from 'react-chatview';
-import fonts from 'fonts'
+import fonts from '@fonts'
+import CommentBubble from './ChatBubble'
 
 const StyledWrapper = styled.div`
   background-color: white;
@@ -87,7 +87,6 @@ export default class ChatContainer extends Component {
               } else {
                 thisUser = false
               }
-              console.log(comment)
               return (
                 <CommentBubble
                   thisUser={thisUser}
@@ -107,9 +106,6 @@ export default class ChatContainer extends Component {
         </StyledChatView>
         <TextSubmitter
           onClickSubmit={message => this.checkMessage(message)}
-          showImageUploader
-          uploadImage={files => addMessageWithImage(files)}
-          websiteType={websiteType}
         />
       </StyledWrapper>
     )

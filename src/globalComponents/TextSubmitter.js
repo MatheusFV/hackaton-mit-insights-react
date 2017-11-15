@@ -38,7 +38,7 @@ const SendContainer = styled.div`
   width: 44px;
   height: 44px;
   margin-top: 5px;
-  background-color: ${props => props.websiteType === 'patients' ? colors.mainRed : colors.mainBlue};
+  background-color: ${props => props.primaryDark};
   cursor: pointer;
 `
 const SendImage = styled.img`
