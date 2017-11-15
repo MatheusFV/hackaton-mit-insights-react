@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import styled from 'styled-components'
 import { ListItem } from 'material-ui/List'
 import Avatar from 'material-ui/Avatar'
+import FlatButton from 'material-ui/FlatButton'
+import Dialog from 'material-ui/Dialog'
 import Button from '@globalComponents/DefaultButton'
 import fonts from '@fonts'
 
@@ -46,7 +48,7 @@ class EventDetailPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-
+      confirm: false,
     }
   }
 
@@ -72,6 +74,20 @@ class EventDetailPage extends Component {
     }
   }
 
+  switchStatus(status, userId, placeId) {
+    if (status === 'pending') {
+      this.setState({ status, userId, placeId, confirm: true })
+    } else {
+      this.props.switchStatus(status, userId, placeId)
+    }
+  }
+
+  newStatus() {
+    const { status, userId, placeId } = this.state
+    this.setState({ confirm: false })
+    this.props.switchStatus(status, userId, placeId)
+  }
+
   render() {
     const {
       place,
@@ -89,6 +105,15 @@ class EventDetailPage extends Component {
         }
       }
     }
+
+    const actions = [
+      <FlatButton
+        label="Ok"
+        primary
+        onTouchTap={() => this.newStatus()}
+      />,
+    ]
+
     return (
       <div>
         <Title>Perfil</Title>
@@ -96,7 +121,7 @@ class EventDetailPage extends Component {
         <Item>Endereço: { place && place.address }</Item>
         <Item>Preço: { place && place.price }</Item>
         <Item>Vagas: { place && place.slots }</Item>
-        <Item>Filtros: { tags }</Item>
+        <Item>Não é permitido: { tags }</Item>
         <Divider />
         <Subtitle>Membros</Subtitle>
         {
@@ -112,7 +137,7 @@ class EventDetailPage extends Component {
                   <ButtonWrapper>
                     <Button
                       label={this.getText(item.status)}
-                      onClick={() => switchStatus(item.status, item.key, activePlace)}
+                      onClick={() => this.switchStatus(item.status, item.key, activePlace)}
                     />
                   </ButtonWrapper>
                   <Divider />
@@ -121,6 +146,15 @@ class EventDetailPage extends Component {
             </div>
           ))
         }
+        <Dialog
+          title={'Cuidado'}
+          actions={actions}
+          open={this.state.confirm}
+          contentStyle={{ width: '400px' }}
+          onRequestClose={() => this.newStatus()}
+        >
+          Você tem certeza que deseja aceitar esse usuário? Será necessário pagar uma taxa de R$2,99
+        </Dialog>
       </div>
     )
   }

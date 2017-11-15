@@ -90,9 +90,19 @@ export const switchStatus = (status, userId, placeId) => (dispatch, getState, ge
   } else if (status === 'interested') {
     firebase.update(`placeRelations/${placeId}/${userId}`, { status: 'confirmed' })
     firebase.update(`usersGroup/${userId}/${placeId}`, { status: 'confirmed' })
+    const ref = firebase.ref(`/places/${placeId}`)
+    ref.once('value')
+    .then((snapshot) => {
+      firebase.update(`places/${placeId}`, { slots: parseInt(snapshot.val().slots) - 1 })
+    })
   } else if (status === 'confirmed') {
     firebase.update(`placeRelations/${placeId}/${userId}`, { status: 'kicked' })
     firebase.update(`usersGroup/${userId}/${placeId}`, { status: 'kicked' })
+    const ref = firebase.ref(`/places/${placeId}`)
+    ref.once('value')
+    .then((snapshot) => {
+      firebase.update(`places/${placeId}`, { slots: parseInt(snapshot.val().slots) + 1 })
+    })
   }
 }
 

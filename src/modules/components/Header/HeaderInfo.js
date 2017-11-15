@@ -16,10 +16,9 @@ const Title = styled.p`
 `
 const LogoWrapper = styled.div`
   height: 60px;
-  width: 150px;
+  width: 100px;
   display: inline-block;
   margin: 0 20px;
-  background-color: white;
   float: right;
   position: relative;
 `
