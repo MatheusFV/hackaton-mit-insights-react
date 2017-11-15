@@ -120,7 +120,7 @@ class EventDetailPage extends Component {
       <div>
         <Title>Perfil</Title>
         <ImageWrapper>
-          <img src={place.imageUrl} />
+          <img src={place && place.imageUrl} />
         </ImageWrapper>
         <Item>Endereço: { place && place.address }</Item>
         <Item>Preço: { place && place.price }</Item>
