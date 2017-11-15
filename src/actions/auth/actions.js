@@ -91,7 +91,32 @@ export const switchStatus = (status, userId, placeId) => (dispatch, getState, ge
     firebase.update(`placeRelations/${placeId}/${userId}`, { status: 'confirmed' })
     firebase.update(`usersGroup/${userId}/${placeId}`, { status: 'confirmed' })
   } else if (status === 'confirmed') {
-    firebase.remove(`placeRelations/${placeId}/${userId}`)
-    firebase.remove(`usersGroup/${userId}/${placeId}`)
+    firebase.update(`placeRelations/${placeId}/${userId}`, { status: 'kicked' })
+    firebase.update(`usersGroup/${userId}/${placeId}`, { status: 'kicked' })
   }
+}
+
+export const addMessage = message => (dispatch, getState, getFirebase) => {
+  const firebase = getFirebase()
+  const state = getState()
+  const activePlace = state.auth.get('activePlace')
+  const uid = state.firebase.get('auth').uid
+  const ref = firebase.ref(`/owners/${uid}/${activePlace}`)
+  ref.once('value')
+  .then((snapshot) => {
+    const data = {
+      name: snapshot.val().address,
+      photoUrl: snapshot.val().imageUrl,
+      message,
+      posterId: uid,
+    }
+    firebase.push(`/chats/${activePlace}`, data)
+  })
+}
+
+export const logout = () => (dispatch, getState, getFirebase) => {
+  const firebase = getFirebase()
+
+  firebase.logout()
+  dispatch(push('/convidado/inicio'))
 }

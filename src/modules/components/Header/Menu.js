@@ -17,6 +17,7 @@ const Wrapper = styled.div`
   -o-transition: all 0.28s ease-out;
   transition:  all 0.28s ease-out;
   will-change: transform;
+  background-color: lightgray;
 `
 const EmptyScreen = styled.div`
   height: 100%;
@@ -44,7 +45,7 @@ const MenuOptions = [
   { label: 'Meus spots', route: '/my-places' },
   { label: 'Perfil', route: '/perfil' },
   { label: 'Grupo', route: '/group' },
-  { label: 'Notificações', route: '/notifs' },
+  // { label: 'Notificações', route: '/notifs' },
   { label: 'Configurações', route: '/config' },
 ]
 
@@ -62,17 +63,17 @@ export default class HeaderMenu extends Component {
     // caso mais alguma rota deva pintar o menuItem de index 1 como selecionado, basta
     // adicionar no array abaixo
     const index1 = ['/my-places', '/new-place']
-    const index2 = ['/profile']
+    const index2 = ['/perfil']
     const index3 = ['/group']
-    const index4 = ['/notifs']
-    const index5 = ['/config']
+    const index4 = ['/config']
+    // const index5 = ['/config']
 
     if (path[0] !== '/') path = `/${path}`
     if (index1.indexOf(path) !== -1) return 0
     if (index2.indexOf(path) !== -1) return 1
     if (index3.indexOf(path) !== -1) return 2
     if (index4.indexOf(path) !== -1) return 3
-    if (index5.indexOf(path) !== -1) return 4
+    // if (index5.indexOf(path) !== -1) return 4
   }
 
   onMenuClick(item) {

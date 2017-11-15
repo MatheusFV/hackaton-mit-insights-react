@@ -1,7 +1,7 @@
 export default {
   white: '#fff',
-  primaryLight: '#3f9790',
+  primaryLight: '#ffd11a',
   primaryLightDisabled: '#ae4e93',
-  primaryDark: '#ec3475',
+  primaryDark: '#23538B',
   primaryDarkDisabled: '#cd7cd5',
 }

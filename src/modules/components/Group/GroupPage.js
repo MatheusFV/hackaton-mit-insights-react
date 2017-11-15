@@ -35,7 +35,9 @@ export default class ChatContainer extends Component {
   }
 
   componentWillMount() {
-
+    if (!this.props.activePlace) {
+      this.props.goToMyPlaces()
+    }
   }
 
   getMoreMessages() {
@@ -82,7 +84,7 @@ export default class ChatContainer extends Component {
           {
             comments && comments.slice(arrayStart, comments.length).map((comment) => {
               let thisUser
-              if (comment.key === myId) {
+              if (comment.posterId === myId) {
                 thisUser = true
               } else {
                 thisUser = false

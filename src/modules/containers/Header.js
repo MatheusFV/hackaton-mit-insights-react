@@ -2,7 +2,7 @@ import { compose } from 'redux'
 import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import { checkIfMobile } from '@helpers/checkIfMobile'
-// import { objectToArray2 } from '@helpers/objectToArray'
+import { logout } from '@actions/auth/actions'
 import {
   firebaseConnect,
   dataToJS,
@@ -11,7 +11,11 @@ import HeaderPage from '@modules/components/Header/HeaderPage'
 
 const mapDispatchToProps = dispatch => ({
   onMenuClick(route) {
-    dispatch(push(route))
+    if (route === '/config') {
+      dispatch(logout())
+    } else {
+      dispatch(push(route))
+    }
   },
 })
 

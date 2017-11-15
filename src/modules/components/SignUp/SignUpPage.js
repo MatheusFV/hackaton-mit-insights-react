@@ -8,13 +8,24 @@ import { TextField } from 'redux-form-material-ui'
 import LoadingOverlay from '@globalComponents/LoadingOverlay'
 import Button from '@globalComponents/DefaultButton'
 import fonts from '@fonts'
+import colors from '@colors'
 import styles from '@consts/styles'
+import MainLogo from '@images/logo_our_spot.png'
 
 const Title = styled.div`
   text-align: center;
   width: 100%;
   height: 40px;
-  font-size: ${fonts.large}
+  color: ${colors.primaryLight};
+  font-size: ${fonts.extraLarge};
+  margin-top: 25px;
+`
+const ImageWrapper = styled.div`
+  width: 60%;
+  margin: auto;
+  img {
+    width: 100%;
+  }
 `
 
 class SignUpPage extends Component {
@@ -43,6 +54,9 @@ class SignUpPage extends Component {
     return (
       <div>
         { authLoading && <LoadingOverlay /> }
+        <ImageWrapper>
+          <img src={MainLogo} />
+        </ImageWrapper>
         <Title>Cadastro</Title>
         <form onSubmit={handleSubmit(signup)}>
           <Field

@@ -38,7 +38,7 @@ const SendContainer = styled.div`
   width: 44px;
   height: 44px;
   margin-top: 5px;
-  background-color: ${props => props.primaryDark};
+  background-color: ${colors.primaryDark};
   cursor: pointer;
 `
 const SendImage = styled.img`
