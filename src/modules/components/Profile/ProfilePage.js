@@ -8,8 +8,11 @@ import Button from '@globalComponents/DefaultButton'
 import fonts from '@fonts'
 
 const ImageWrapper = styled.div`
-  width: 80%;
-  margin: auto;
+  width: 60%;
+  margin: 0px auto 30px auto;
+  img {
+    width: 100%;
+  }
 `
 const Item = styled.div`
   width: 100%;
@@ -113,11 +116,12 @@ class EventDetailPage extends Component {
         onTouchTap={() => this.newStatus()}
       />,
     ]
-
     return (
       <div>
         <Title>Perfil</Title>
-        <ImageWrapper />
+        <ImageWrapper>
+          <img src={place.imageUrl} />
+        </ImageWrapper>
         <Item>Endereço: { place && place.address }</Item>
         <Item>Preço: { place && place.price }</Item>
         <Item>Vagas: { place && place.slots }</Item>

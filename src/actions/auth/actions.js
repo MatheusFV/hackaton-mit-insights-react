@@ -65,10 +65,12 @@ export const createPlace = (formValues, tags, image) => (dispatch, getState, get
       const downloadURL = task.snapshot.downloadURL;
       const smallData = {
         ...formValues,
+        // slots: parseInt(formValues.slots),
         imageUrl: downloadURL,
       }
       const firebaseData = {
         ...formValues,
+        // slots: parseInt(formValues.slots),
         tags,
         imageUrl: downloadURL,
       }
@@ -84,6 +86,7 @@ export const createPlace = (formValues, tags, image) => (dispatch, getState, get
 export const switchStatus = (status, userId, placeId) => (dispatch, getState, getFirebase) => {
   const firebase = getFirebase()
   const state = getState()
+  const uid = state.firebase && state.firebase.get('auth') && state.firebase.get('auth').uid
   if (status === 'pending') {
     firebase.update(`placeRelations/${placeId}/${userId}`, { status: 'interested' })
     firebase.update(`usersGroup/${userId}/${placeId}`, { status: 'interested' })
@@ -93,7 +96,8 @@ export const switchStatus = (status, userId, placeId) => (dispatch, getState, ge
     const ref = firebase.ref(`/places/${placeId}`)
     ref.once('value')
     .then((snapshot) => {
-      firebase.update(`places/${placeId}`, { slots: parseInt(snapshot.val().slots) - 1 })
+      firebase.update(`places/${placeId}`, { slots: (parseInt(snapshot.val().slots) - 1).toString() })
+      firebase.update(`owners/${uid}/${placeId}`, { slots: (parseInt(snapshot.val().slots) - 1).toString() })
     })
   } else if (status === 'confirmed') {
     firebase.update(`placeRelations/${placeId}/${userId}`, { status: 'kicked' })
@@ -101,7 +105,8 @@ export const switchStatus = (status, userId, placeId) => (dispatch, getState, ge
     const ref = firebase.ref(`/places/${placeId}`)
     ref.once('value')
     .then((snapshot) => {
-      firebase.update(`places/${placeId}`, { slots: parseInt(snapshot.val().slots) + 1 })
+      firebase.update(`places/${placeId}`, { slots: (parseInt(snapshot.val().slots) + 1).toString() })
+      firebase.update(`owners/${uid}/${placeId}`, { slots: (parseInt(snapshot.val().slots) + 1).toString() })
     })
   }
 }
