@@ -1,5 +1,4 @@
 import { push } from 'react-router-redux'
-import fetchData from '@helpers/fetchData'
 import { newAlert } from '@actions/global/actions'
 import * as t from './actionTypes.js'
 
@@ -7,10 +6,14 @@ const signInStart = () => ({
   type: t.SIGN_IN_START,
 })
 
-const signInFinish = data => ({
+const signInFinish = () => ({
   type: t.SIGN_IN_FINISH,
+})
+
+export const setActivePlace = key => ({
+  type: t.SET_ACTIVE_PLACE,
   payload: {
-    data,
+    key,
   },
 })
 
@@ -21,13 +24,9 @@ export const login = formValues => async (dispatch, getState, getFirebase) => {
   firebase.login({
     email: formValues.username,
     password: formValues.password,
-  }).then((resp) => {
-    const ref = firebase.ref(`/users/${resp.uid}`)
-    ref.once('value')
-    .then((snapshot) => {
-      dispatch(signInFinish(snapshot.val()))
-      dispatch(push('/home'))
-    })
+  }).then(() => {
+    dispatch(signInFinish())
+    dispatch(push('/my-places'))
   }).catch((err) => {
     console.log(err)
   })
@@ -37,20 +36,18 @@ export const signup = formValues => (dispatch, getState, getFirebase) => {
   dispatch(signInStart())
   const { email, password } = formValues
 
-  const firebaseData = formValues
-  delete firebaseData.password
-  delete firebaseData.confirmPassword
-
   const firebase = getFirebase()
   firebase.createUser({
     email,
     password,
-  }).then((userData) => {
-    firebase.helpers.set(`/users/${userData.uid}`, firebaseData)
-
-    dispatch(signInFinish(firebaseData))
-    dispatch(push('/home'))
+  }).then(() => {
+    dispatch(signInFinish())
+    dispatch(push('/my-places'))
   }).catch((err) => {
     console.log(err)
   })
+}
+
+export const createPlace = (formValues, tags, image) => (dispatch, getState, getFirebase) => {
+  const firebase = getFirebase()
 }

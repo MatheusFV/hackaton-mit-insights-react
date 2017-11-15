@@ -1,27 +1,28 @@
 import { compose } from 'redux'
-import { push } from 'react-router-redux'
+import { reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
+import { createPlace } from '@actions/auth/actions'
 import { checkIfMobile } from '@helpers/checkIfMobile'
-import {
-  firebaseConnect,
-  dataToJS,
-} from 'react-redux-firebase'
-import GroupPage from '@modules/components/Group/GroupPage'
+import schema from '@consts/schemas/placeSchema'
+import validator from '@helpers/validator'
+import NewPlacePage from '@modules/components/NewPlace/NewPlacePage'
 
-const urlMapping = () => ({
-  users: 'users',
-})
+const validate = values => validator(values, schema)
 
 const mapDispatchToProps = dispatch => ({
-
+  createPlace(formValues, tags, image) {
+    dispatch(createPlace(formValues, tags, image))
+  },
 })
 
 const mapStateToProps = state => ({
   isMobile: checkIfMobile(),
-  // team: dataToJS(state.firebase, `teamRelations/teamsForPatient/${uid}/${teamId}`),
 })
 
 export default compose(
-  firebaseConnect(urlMapping),
   connect(mapStateToProps, mapDispatchToProps),
-)(GroupPage)
+  reduxForm({
+    form: 'NewPlaceForm',
+    validate,
+  }),
+)(NewPlacePage)

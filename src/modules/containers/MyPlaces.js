@@ -1,27 +1,33 @@
 import { compose } from 'redux'
 import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
+import { setActivePlace } from '@actions/auth/actions'
 import { checkIfMobile } from '@helpers/checkIfMobile'
+import { objectToArray2 } from '@helpers/objectToArray'
 import {
   firebaseConnect,
   dataToJS,
 } from 'react-redux-firebase'
-import GroupPage from '@modules/components/Group/GroupPage'
-
-const urlMapping = () => ({
-  users: 'users',
-})
+import MyPlacesPage from '@modules/components/MyPlaces/MyPlacesPage'
 
 const mapDispatchToProps = dispatch => ({
-
+  goToNewPlace() {
+    dispatch(push('/new-place'))
+  },
+  setPlace(key) {
+    dispatch(setActivePlace(key))
+    dispatch(push('/perfil'))
+  },
 })
 
 const mapStateToProps = state => ({
   isMobile: checkIfMobile(),
-  // team: dataToJS(state.firebase, `teamRelations/teamsForPatient/${uid}/${teamId}`),
+  uid: 'TkutBhe0FkUBNN6Gg7jAJksYpxj1',
+  // places: dataToJS(state.firebase, `owners/${state.firebase.get('auth').uid}`),
+  owners: objectToArray2(dataToJS(state.firebase, '/owners')),
 })
 
 export default compose(
-  firebaseConnect(urlMapping),
+  firebaseConnect(['/owners']),
   connect(mapStateToProps, mapDispatchToProps),
-)(GroupPage)
+)(MyPlacesPage)

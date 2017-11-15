@@ -69,7 +69,7 @@ export default class HeaderMenu extends Component {
         </HeaderContainer>
         <HeaderContainer float={'right'}>
           <HeaderInfo
-            name={(profileData && profileData.tradeName) || 'teste'}
+            name={(profileData && profileData.name)}
             logo={(profileData && profileData.image) || null}
             goToCompany={route => this.redirect(route)}
           />

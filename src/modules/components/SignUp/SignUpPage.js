@@ -52,12 +52,6 @@ class SignUpPage extends Component {
             floatingLabelText="Email"
           />
           <Field
-            name="name"
-            style={styles.inputField}
-            component={TextField}
-            floatingLabelText="Nome"
-          />
-          <Field
             name="password"
             type="password"
             style={styles.inputField}

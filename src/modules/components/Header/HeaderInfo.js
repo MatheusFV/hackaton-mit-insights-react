@@ -12,7 +12,7 @@ const Title = styled.p`
   margin: 0;
   line-height: 60px;
   float: left;
-  cursor: pointer
+  cursor: default;
 `
 const LogoWrapper = styled.div`
   height: 60px;
@@ -39,10 +39,6 @@ export default class HeaderMenu extends Component {
 
   static propTypes = {}
 
-  goToCompany(r) {
-    this.props.goToCompany(r)
-  }
-
   render() {
     const {
       name,
@@ -50,7 +46,7 @@ export default class HeaderMenu extends Component {
     } = this.props
     return (
       <Wrapper>
-        <Title onClick={() => this.goToCompany('/empresa')}>{name}</Title>
+        <Title>{name}</Title>
         <LogoWrapper>
           <StyledLogo src={logo} />
         </LogoWrapper>

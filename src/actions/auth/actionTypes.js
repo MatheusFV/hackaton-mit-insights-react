@@ -1,2 +1,3 @@
 export const SIGN_IN_START = 'SIGN_IN_START'
 export const SIGN_IN_FINISH = 'SIGN_IN_FINISH'
+export const SET_ACTIVE_PLACE = 'SET_ACTIVE_PLACE'

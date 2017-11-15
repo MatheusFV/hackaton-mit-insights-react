@@ -3,7 +3,7 @@ export const objectToArray = object => ({
 })
 
 
-export const objectToArray2 = object => Object.keys(object).map(key => ({
-  ...object[key],
-  key,
-}))
+export const objectToArray2 = object => object ? Object.keys(object).map(o => ({
+  key: o,
+  ...object[o],
+})) : []
