@@ -55,13 +55,12 @@ export default class HeaderMenu extends Component {
       changeClub,
       myClubs,
       activeClub,
-      profileData,
+      headerPlace,
       path,
     } = this.props
     const {
       showMenu,
     } = this.state
-
     return (
       <Wrapper>
         <HeaderContainer width={'50px'} float={'left'}>
@@ -69,9 +68,8 @@ export default class HeaderMenu extends Component {
         </HeaderContainer>
         <HeaderContainer float={'right'}>
           <HeaderInfo
-            name={(profileData && profileData.name)}
-            logo={(profileData && profileData.image) || null}
-            goToCompany={route => this.redirect(route)}
+            name={(headerPlace && headerPlace.address) || null}
+            logo={(headerPlace && headerPlace.imageUrl) || null}
           />
         </HeaderContainer>
         <Menu show={showMenu} path={path} onMenuClick={route => this.onMenuClick(route)} />

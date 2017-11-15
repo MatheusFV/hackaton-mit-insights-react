@@ -80,3 +80,18 @@ export const createPlace = (formValues, tags, image) => (dispatch, getState, get
     },
   )
 }
+
+export const switchStatus = (status, userId, placeId) => (dispatch, getState, getFirebase) => {
+  const firebase = getFirebase()
+  const state = getState()
+  if (status === 'pending') {
+    firebase.update(`placeRelations/${placeId}/${userId}`, { status: 'interested' })
+    firebase.update(`usersGroup/${userId}/${placeId}`, { status: 'interested' })
+  } else if (status === 'interested') {
+    firebase.update(`placeRelations/${placeId}/${userId}`, { status: 'confirmed' })
+    firebase.update(`usersGroup/${userId}/${placeId}`, { status: 'confirmed' })
+  } else if (status === 'confirmed') {
+    firebase.remove(`placeRelations/${placeId}/${userId}`)
+    firebase.remove(`usersGroup/${userId}/${placeId}`)
+  }
+}

@@ -16,6 +16,7 @@ import SignIn from '@containers/SignIn'
 import SignUp from '@containers/SignUp'
 import MyPlaces from '@containers/MyPlaces'
 import NewPlace from '@containers/NewPlace'
+import Profile from '@containers/Profile'
 
 // // Funções para validar o acesso de rotas caso o usuário esta logado/deslogado
 // const userIsAuthenticated = connectedRouterRedirect({
@@ -43,6 +44,7 @@ const AuthenticatedRoutes = () => (
       <Route path="/home" exact component={Home} />
       <Route path="/my-places" exact component={MyPlaces} />
       <Route path="/new-place" exact component={NewPlace} />
+      <Route path="/perfil" exact component={Profile} />
     </CentralContainer>
   </div>
 )

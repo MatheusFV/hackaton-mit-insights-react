@@ -11,6 +11,7 @@ import UploadImage from '@globalComponents/UploadImage'
 import EditableBanner from '@globalComponents/EditableBanner'
 import Button from '@globalComponents/DefaultButton'
 import LoadingOverlay from '@globalComponents/LoadingOverlay'
+import { normalizeCurrency } from '@helpers/normalizers'
 import fonts from '@fonts'
 import styles from '@consts/styles'
 
@@ -120,7 +121,9 @@ class LoginPage extends Component {
             name="price"
             style={styles.inputField}
             component={TextField}
+            normalize={normalizeCurrency}
             floatingLabelText="Preço"
+            hintText="0.00"
           />
           <Field
             name="slots"
@@ -130,7 +133,7 @@ class LoginPage extends Component {
           />
           <SelectField
             multiple
-            hintText="Select a name"
+            hintText="Selecione os filtros"
             value={values}
             style={{ width: '100%', marginTop: '20px' }}
             onChange={this.handleChange}
