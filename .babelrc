@@ -1,0 +1,27 @@
+{
+  "presets": [
+    "es2015",
+    "stage-0", "react"],
+  "plugins": [
+    "react-hot-loader/babel",
+    "transform-decorators-legacy",
+    ["module-resolver", {
+      "root": ["./src"],
+      "alias": {
+        "@actions": "./src/actions",
+        "@consts": "./src/consts",
+        "@config": "./src/config",
+        "@globalComponents": "./src/globalComponents",
+        "@components": "./src/modules/components",
+        "@containers": "./src/modules/containers",
+        "@modules": "./src/modules",
+        "@helpers": "./src/helpers",
+        "@hocs": "./src/hocs",
+        "@images": "./src/assets/images",
+        "@colors": "./src/consts/colors.js",
+        "@fonts": "./src/consts/fonts.js",
+        "underscore": "./src/lodash"
+      }
+    }]
+  ],
+}
